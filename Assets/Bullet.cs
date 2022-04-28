@@ -5,11 +5,15 @@ using UnityEngine;
 public class Bullet : MonoBehaviour , IPooledObject
 {
     public float Speed = 0.01f;
+    float StartSpeed;
     public void OnObjectSpawn()
     {
         Speed += 0.1f;
     }
-
+    void Start()
+    {
+        StartSpeed = Speed;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +43,7 @@ public class Bullet : MonoBehaviour , IPooledObject
             GameObject[] AllBullet = GameObject.FindGameObjectsWithTag("Bullet");
             foreach(GameObject bullet in AllBullet)
             {
-                bullet.GetComponent<Bullet>().Speed = 0.005f;
+                bullet.GetComponent<Bullet>().Speed = StartSpeed;
                 bullet.SetActive(false);
             }
         }
