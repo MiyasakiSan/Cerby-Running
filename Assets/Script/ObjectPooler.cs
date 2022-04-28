@@ -20,7 +20,6 @@ public class ObjectPooler : MonoBehaviour
         Instance = this;
     }
     #endregion 
-
     public List<Pool> pools;
     public Dictionary<string,Queue<GameObject>> poolDictionary;
     // Start is called before the first frame update
@@ -35,7 +34,7 @@ public class ObjectPooler : MonoBehaviour
             for (int i = 0;i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(true);
+                obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
 
@@ -61,5 +60,4 @@ public class ObjectPooler : MonoBehaviour
 
         return objecToSpwan;
     }
-
 }
