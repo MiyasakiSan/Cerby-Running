@@ -5,8 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour , IPooledObject
 {
     public float Speed = 0.01f;
-    float StartSpeed;
-    public GameObject StartButton;
+    public float StartSpeed;
     public void OnObjectSpawn()
     {
         Speed += 0.1f;
@@ -33,21 +32,6 @@ public class Bullet : MonoBehaviour , IPooledObject
         else if (name == "BulletRight(Clone)")
         {
             this.transform.position += new Vector3(-Speed, 0, 0);
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.transform.position = new Vector3(0, 0, 0);
-            collision.gameObject.GetComponent<CharacterController>().isMove = false;
-            GameObject[] AllBullet = GameObject.FindGameObjectsWithTag("Bullet");
-            foreach(GameObject bullet in AllBullet)
-            {
-                bullet.GetComponent<Bullet>().Speed = StartSpeed;
-                bullet.SetActive(false);
-                StartButton.SetActive(true);
-            }
         }
     }
 }

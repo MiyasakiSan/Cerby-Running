@@ -8,6 +8,7 @@ public class BulletSpawn : MonoBehaviour
     ObjectPooler objectPooler;
     int PoolSize;
     public GameObject StartButton;
+    public GameObject WelcomeText;
     ScoreCollector scoreCollector;
     private void Start()
     {
@@ -24,6 +25,7 @@ public class BulletSpawn : MonoBehaviour
         SpawnLeft(PoolSize);
         SpawnRight(PoolSize);
         StartButton.SetActive(false);
+        WelcomeText.SetActive(false);
     }
     void SpawnRight(int size)
     {

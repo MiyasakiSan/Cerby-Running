@@ -21,6 +21,7 @@ public class ObjectPooler : MonoBehaviour
     }
     #endregion 
     public GameObject StartButton;
+    public GameObject WelcomeText;
     public List<Pool> pools;
     public Dictionary<string,Queue<GameObject>> poolDictionary;
     // Start is called before the first frame update
@@ -35,7 +36,6 @@ public class ObjectPooler : MonoBehaviour
             for (int i = 0;i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
-                obj.GetComponent<Bullet>().StartButton = StartButton;
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
