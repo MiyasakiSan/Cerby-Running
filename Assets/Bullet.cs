@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour , IPooledObject
 {
     public float Speed = 0.01f;
     float StartSpeed;
+    public GameObject StartButton;
     public void OnObjectSpawn()
     {
         Speed += 0.1f;
@@ -45,6 +46,7 @@ public class Bullet : MonoBehaviour , IPooledObject
             {
                 bullet.GetComponent<Bullet>().Speed = StartSpeed;
                 bullet.SetActive(false);
+                StartButton.SetActive(true);
             }
         }
     }
