@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class CharacterController : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class CharacterController : MonoBehaviour
     Rigidbody2D rb;
 
     Vector2 movement;
+
+    [DllImport("_Internal")]
+    private static extern void PlayerScore(int score);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +75,6 @@ public class CharacterController : MonoBehaviour
         {
             PlayerDash();  
         }
-
         //if (isMove)
         //{
         //    if (Input.GetKey(KeyCode.W))
@@ -92,4 +96,25 @@ public class CharacterController : MonoBehaviour
         //    animator.SetBool("Walk", true);
         //}
     }
-}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            gameObject.transform.position = new Vector3(0, 0, 0);
+            gameObject.GetComponent<CharacterController>().isMove = false;
+            int Score = GameObject.Find("ScoreManager").GetComponent<ScoreCollector>().Score;
+            GameObject[] AllBullet = GameObject.FindGameObjectsWithTag("Bullet");
+            foreach (GameObject bullet in AllBullet)
+            {
+                bullet.GetComponent<Bullet>().Speed = bullet.GetComponent<Bullet>().StartSpeed;
+                bullet.SetActive(false);
+                StartButton.SetActive(true);
+                WelcomeText.SetActive(true);
+            }
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+                WebGLInput.captureAllKeyboardInput = false;
+                PlayerScore(Score);
+#endif
+        }
+    }
