@@ -5,7 +5,10 @@ using System.Runtime.InteropServices;
 
 public class CharacterController : MonoBehaviour
 {
-    float MovementSpeed = 5.0f;
+    public GameObject StartButton;
+    public GameObject WelcomeText;
+
+    public float MovementSpeed = 5.0f;
     public bool isMove = false;
 
     public bool isDash = false;
@@ -36,10 +39,10 @@ public class CharacterController : MonoBehaviour
         if (MovementSpeed == 5f && isDash == true)
         {
             MovementSpeed = 50f;
-            
-            
 
-            if(isDash == true && MovementSpeed == 50f)
+
+
+            if (isDash == true && MovementSpeed == 50f)
             {
                 StartCoroutine(DashTime());
             }
@@ -73,7 +76,7 @@ public class CharacterController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlayerDash();  
+            PlayerDash();
         }
         //if (isMove)
         //{
@@ -96,10 +99,10 @@ public class CharacterController : MonoBehaviour
         //    animator.SetBool("Walk", true);
         //}
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet") && isDash == false)
         {
             gameObject.transform.position = new Vector3(0, 0, 0);
             gameObject.GetComponent<CharacterController>().isMove = false;
@@ -118,3 +121,4 @@ public class CharacterController : MonoBehaviour
 #endif
         }
     }
+}
